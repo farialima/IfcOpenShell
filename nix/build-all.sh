@@ -400,4 +400,31 @@ for PYTHON_VERSION in "${PYTHON_VERSIONS[@]}"; do
         
 done
 
+
+printf "\rConfiguring javascript wrapper..."
+    
+mkdir -p javascript
+cd javascript
+
+    
+run_cmake "" "
+-DBOOST_ROOT=$DEPS_DIR/install/boost-$BOOST_VERSION                        
+-DOCC_INCLUDE_DIR=$DEPS_DIR/install/oce-$OCE_VERSION/include/oce           
+-DOCC_LIBRARY_DIR=$DEPS_DIR/install/oce-$OCE_VERSION/lib                   
+-DOPENCOLLADA_INCLUDE_DIR=$DEPS_DIR/install/OpenCOLLADA/include/opencollada
+-DOPENCOLLADA_LIBRARY_DIR=$DEPS_DIR/install/OpenCOLLADA/lib/opencollada    
+-DICU_INCLUDE_DIR=$DEPS_DIR/install/icu-$ICU_VERSION/include
+-DICU_LIBRARY_DIR=$DEPS_DIR/install/icu-$ICU_VERSION/lib
+-DSWIG_EXECUTABLE=$DEPS_DIR/install/swig/bin/swig
+-DCOLLADA_SUPPORT=OFF
+-DBUILD_IFCPYTHON=OFF
+-DBUILD_IFCJAVASCRIPT=ON
+" $CMAKE_DIR
+    
+printf "\rBuilding javascript wrapper...   "
+    
+make -j$IFCOS_NUM_BUILD_PROCS ifcopenshell_wrapper >>$LOG_FILE 2>&1
+    
+cd ..
+
 printf "\rBuilt IfcOpenShell...                        \n\n"

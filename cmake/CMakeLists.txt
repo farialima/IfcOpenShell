@@ -27,6 +27,7 @@ OPTION(ENABLE_BUILD_OPTIMIZATIONS "Enable certain compiler and linker optimizati
 OPTION(IFCCONVERT_DOUBLE_PRECISION "IfcConvert: Use double precision floating-point numbers." ON)
 OPTION(USE_IFC4 "Use IFC 4 instead of IFC 2x3 (full rebuild recommended when switching this)" OFF)
 OPTION(BUILD_IFCPYTHON "Build IfcPython." ON)
+OPTION(BUILD_IFCJAVASCRIPT "Build Javascript." OFF)
 OPTION(BUILD_EXAMPLES "Build example applications." ON)
 OPTION(USE_VLD "Use Visual Leak Detector for debugging memory leaks, MSVC-only." OFF)
 OPTION(BUILD_IFCMAX "Build IfcMax, a 3ds Max plug-in, Windows-only." OFF)
@@ -568,6 +569,10 @@ endif()
 
 IF(BUILD_IFCPYTHON)
 	ADD_SUBDIRECTORY(../src/ifcwrap ifcwrap)
+ENDIF()
+
+IF(BUILD_IFCJAVASCRIPT)
+	ADD_SUBDIRECTORY(../src/ifcopenshell-javascript ifcopenshell-ifcjavacript)
 ENDIF()
 
 IF(BUILD_EXAMPLES)
